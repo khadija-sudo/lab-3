@@ -1,0 +1,39 @@
+#include <iostream>
+using namespace std;
+
+struct MNode {
+    int data;
+    MNode* next;
+    MNode* child;
+    MNode(int v):data(v),next(NULL),child(NULL){}
+};
+MNode* flatten(MNode* head){
+    if(!head)return NULL;
+    MNode* curr=head;
+    while(curr){
+        if(curr->child){
+            MNode* t=curr->next;
+            curr->next=flatten(curr->child);
+            curr->child=NULL;
+            MNode* x=curr->next;
+            while(x&&x->next)x=x->next;
+            if(x)x->next=t;
+        }
+        curr=curr->next;
+    }
+    return head;
+}
+void printList(MNode* head){
+    while(head){
+    cout<<head->data<<" ";
+     head=head->next;}
+}
+int main(){
+    MNode* head=new MNode(1);
+    head->next=new MNode(2);
+    head->next->next=new MNode(3);
+    head->next->child=new MNode(4);
+    head->next->child->next=new MNode(5);
+    head=flatten(head);
+    printList(head);
+}
