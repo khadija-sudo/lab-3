@@ -1,0 +1,31 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+    Node(int v):data(v),next(NULL){}
+};
+int josephus(int n,int k){
+    Node* head=new Node(1);
+    Node* prev=head;
+    for(int i=2;i<=n;i++){
+    prev->next=new Node(i);
+    rev=prev->next;}
+    prev->next=head;
+    Node* p=head;
+    while(p->next!=p){
+        for(int c=1;c<k-1;c++)
+        p=p->next;
+        Node* d=p->next;
+        p->next=d->next;
+        delete d;
+        p=p->next;
+    }
+    int ans=p->data;
+    delete p;
+    return ans;
+}
+int main(){
+    cout<<josephus(7,3);
+}
